@@ -35,23 +35,38 @@ public class CuentaCorriente extends ProductosFinancieros implements Cuentas {
 	}
 	@Override
 	public void consignar(int valor) {
-		this.saldo =+ valor;
+		this.saldo =+ (int)(valor - (valor * interes));
 	}
 
 	@Override
-	public void retirar(int valor) throws Exception {
-		if(valor <= this.saldo) {
-			this.saldo -= valor;			
+	public void retirar(int valor, boolean Transferir) throws Exception {
+		if(Transferir) {
+			if(valor <= this.saldo){
+				this.saldo -= valor ;			
+			}else {
+				throw new Exception("Saldo insuficiente");
+			}
+			
 		}else {
-			throw new Exception("Saldo insuficiente");
+			if((valor +(valor * interes)) <= this.saldo) {
+				this.saldo -= (valor +(valor * interes));			
+			}else {
+				throw new Exception("Saldo insuficiente");
+			}
 		}
 	}
 
 	@Override
-	public void Transferir(Cuentas cuentaDestino, int valor) throws Exception {
-		this.retirar(valor);
-		cuentaDestino.consignar(valor);
+	public void Transferir(ProductosFinancieros pf, int valor) throws Exception {
 		
+		
+		this.retirar(valor,true);
+		
+	}
+	
+	@Override
+	public String toString() {
+		return this.numero + "\t" + this.saldo + "\t" + this.Tipo + "\t" + this.cliente;
 	}
 	
 	

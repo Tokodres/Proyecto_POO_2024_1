@@ -1,8 +1,8 @@
 package logica;
 
 public class ProductosFinancieros {
-	private String Tipo;
-	private Cliente cliente;
+	protected String Tipo;
+	protected Cliente cliente;
 	
 	
 	public ProductosFinancieros(String tipo, Cliente cliente) {

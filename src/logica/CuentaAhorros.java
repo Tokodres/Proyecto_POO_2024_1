@@ -16,9 +16,18 @@ public  class CuentaAhorros extends ProductosFinancieros implements Cuentas{
 	}
 	
 	
+
 	
 	
-	
+
+	public CuentaAhorros(int numero) {
+		this.numero = numero;
+	}
+
+
+
+
+
 
 	public int getNumero() {
 		return numero;
@@ -44,7 +53,7 @@ public  class CuentaAhorros extends ProductosFinancieros implements Cuentas{
 	}
 
 	@Override
-	public void retirar(int valor) throws Exception {
+	public void retirar(int valor, boolean Transferir) throws Exception {
 		if(valor <= this.saldo) {
 			this.saldo -= valor;			
 		}else {
@@ -53,12 +62,15 @@ public  class CuentaAhorros extends ProductosFinancieros implements Cuentas{
 	}
 
 	@Override
-	public void Transferir(Cuentas cuentaDestino, int valor) throws Exception {
-		this.retirar(valor);
-		cuentaDestino.consignar(valor);
+	public void Transferir(ProductosFinancieros pf, int valor) throws Exception {
+		this.retirar(valor,true);
+	//	pf.consignar(valor);
 		
 	}
-
+	@Override
+	public String toString() {
+		return this.numero + "\t" + this.saldo + "\t" + this.Tipo + "\t" + this.cliente;
+	}
 
 
 
