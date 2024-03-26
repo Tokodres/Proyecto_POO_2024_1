@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import logica.Banco;
 import logica.Cliente;
-import logica.Cuenta;
+import logica.ProductosFinancieros;
 
 public class Principal {
 	private Banco banco;
@@ -56,25 +56,42 @@ public class Principal {
 	}
 
 	private void cargar(Scanner sc) throws Exception {
+		int opc1 = 0;
 		System.out.println("seleccione:");
 		System.out.println("1. Cargar Cliente");
 		System.out.println("2. Cargar Cuenta");
 		int opc = sc.nextInt();
-		this.banco.cargar(opc);
+		if(opc == 2) {
+			System.out.println("1. Almecenar Ahorros");
+			System.out.println("2. Almecenar Corriente");
+			opc1 = sc.nextInt();
+		}
+		this.banco.cargar(opc, opc1);
 	}
 
 	private void almacenar(Scanner sc) {
+		int opc1 = 0;
 		System.out.println("seleccione:");
 		System.out.println("1. Almecenar Cliente");
 		System.out.println("2. Almecenar Cuenta");
 		int opc = sc.nextInt();
-		this.banco.almacenar(opc);		
+		
+		if(opc == 2) {
+			System.out.println("1. Almecenar Ahorros");
+			System.out.println("2. Almecenar Corriente");
+			opc1 = sc.nextInt();
+		}
+		this.banco.almacenar(opc, opc1);		
 	}
 
 	private void imprimirCuentas() {
 		System.out.println("Num\tSaldo\tTipo\tCliente");
-		for(Cuenta cuenta : this.banco.getCuentas()) {
-			System.out.println(cuenta);
+		for(ProductosFinancieros pf : this.banco.getCuentaAhorros()) {
+			System.out.println(pf);
+		}
+		
+		for(ProductosFinancieros pf : this.banco.getCuentaCorriente()) {
+			System.out.println(pf);
 		}
 	}
 
@@ -93,7 +110,7 @@ public class Principal {
 		System.out.println("Saldo:");
 		int saldo = sc.nextInt();
 		System.out.println("Tipo:");
-		String tipo = sc.next();
+		int tipo = sc.nextInt();
 		System.out.println("Id Cliente:");
 		int idCliente = sc.nextInt();
 		this.banco.crearCuenta(numero, saldo, tipo, idCliente);
@@ -106,7 +123,9 @@ public class Principal {
 		String nombre = sc.next();
 		System.out.println("apellido:");
 		String apellido = sc.next();
-		this.banco.crearCliente(id, nombre, apellido);
+		System.out.println("Edad:");
+		int edad = sc.nextInt();
+		this.banco.crearCliente(id, nombre, apellido,edad);
 	}
 
 
