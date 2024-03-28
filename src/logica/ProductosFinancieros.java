@@ -10,6 +10,9 @@ public class ProductosFinancieros {
 		Tipo = tipo;
 		this.cliente = cliente;
 	}
+	public ProductosFinancieros() {
+		
+	}
 	
 	public String getTipo() {
 		return Tipo;

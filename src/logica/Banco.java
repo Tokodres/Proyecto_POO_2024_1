@@ -1,6 +1,6 @@
 package logica;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -121,13 +121,13 @@ public class Banco {
 
 			if(TipoCuenta == 1) {
 				for(CuentaAhorros cuenta : this.cuentaAhorros) {
-					lineasCuentas.add(cuenta.getNumero() + "/t" +cuenta.getSaldo() + "/t" +cuenta.getTipo() +"/t" +cuenta.getCliente().getId());	
+					lineasCuentas.add(cuenta.getNumero() + "\t" +cuenta.getSaldo() + "\t" +cuenta.getTipo() +"\t" +cuenta.getCliente().getId());	
 				}
 				ArchivoPlano.almacenar("cuentaAhorros.csv", lineasCuentas);
 
 			}else if (TipoCuenta == 2) {
 				for(CuentaCorriente cuenta : this.cuentaCorriente) {
-					lineasCuentas.add(cuenta.getNumero() + "/t" +cuenta.getSaldo() + "/t" +cuenta.getTipo() +"/t" +cuenta.getCliente().getId());	
+					lineasCuentas.add(cuenta.getNumero() + "\t" +cuenta.getSaldo() + "\t" +cuenta.getTipo() +"\t" +cuenta.getCliente().getId());	
 				}
 				ArchivoPlano.almacenar("cuentaCorriente.csv", lineasCuentas);
 			}
@@ -192,20 +192,94 @@ public class Banco {
 					}
 
 				}
-
-
-
-
-
 			}
-
-
-
-
-
-
 		}
 	}
+
+
+	public void consignar(int numero, int idCliente, int valor, int TipoCuenta) throws Exception {
+
+		if(TipoCuenta == 1) {
+			if(this.exiteCuenta(numero, 1)) {
+				for(CuentaAhorros cuenta : this.cuentaAhorros) {
+					if(cuenta.getNumero() == numero) {	
+						CuentaAhorros ca = new CuentaAhorros("Ahorros", this.clientes.get(idCliente), numero,cuenta.getSaldo());
+						ca.consignar(valor);
+					}
+				}
+			}
+		} else if(TipoCuenta == 2) {
+			if(this.exiteCuenta(numero, 2)) {
+				for(CuentaCorriente cuenta : this.cuentaCorriente) {
+					if(cuenta.getNumero() == numero) {	
+						CuentaCorriente cc = new CuentaCorriente("Corriente", this.clientes.get(idCliente), numero,cuenta.getSaldo());
+						cc.consignar(valor);
+					}
+				}
+			}	
+		}
+	}
+	
+	public void retirar(int numero, int idCliente, int valor, int TipoCuenta) throws Exception {
+		if(TipoCuenta == 1) {
+			if(this.exiteCuenta(numero, 1)) {
+				for(CuentaAhorros cuenta : this.cuentaAhorros) {
+					if(cuenta.getNumero() == numero) {	
+						CuentaAhorros ca = new CuentaAhorros("Ahorros", this.clientes.get(idCliente), numero,cuenta.getSaldo());
+						ca.retirar(valor, false);
+					}
+				}
+			}
+		} else if(TipoCuenta == 2) {
+			if(this.exiteCuenta(numero, 2)) {
+				for(CuentaCorriente cuenta : this.cuentaCorriente) {
+					if(cuenta.getNumero() == numero) {	
+						CuentaCorriente cc = new CuentaCorriente("Corriente", this.clientes.get(idCliente), numero,cuenta.getSaldo());
+						cc.retirar(valor, false);
+					}
+				}
+			}	
+		}
+	}
+	
+	public void transferir(int numero, int idCliente, int valor, int TipoCuenta) throws Exception {
+		ProductosFinancieros pf ;
+		Cuentas cs;
+		if(TipoCuenta == 1) {
+			if(this.exiteCuenta(numero, 1)) {
+				for(CuentaAhorros cuenta : this.cuentaAhorros) {
+					if(cuenta.getNumero() == numero) {	
+						/*
+						 *   Implementar opcion de transferir de una cuenta a otra
+						 *   ya sea de ahorros o corriente
+						 * 
+						 */
+					}
+				}
+			}
+		} else if(TipoCuenta == 2) {
+			if(this.exiteCuenta(numero, 2)) {
+				for(CuentaCorriente cuenta : this.cuentaCorriente) {
+					if(cuenta.getNumero() == numero) {	
+						/*
+						 *   Implementar opcion de transferir de una cuenta a otra
+						 *   ya sea de ahorros o corriente
+						 * 
+						 */
+					}
+				}
+			}	
+		}
+		
+		
+		
+		
+		
+	}
+
+
+
+
 }
 
 
