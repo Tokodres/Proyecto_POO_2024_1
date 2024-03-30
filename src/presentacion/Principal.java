@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import logica.Banco;
 import logica.Cliente;
-import logica.CuentaAhorros;
 import logica.ProductosFinancieros;
 
 public class Principal {
@@ -75,27 +74,16 @@ public class Principal {
 	}
 
 	private void almacenar(Scanner sc) {
-		int opc1 = 0;
 		System.out.println("seleccione:");
 		System.out.println("1. Almecenar Cliente");
 		System.out.println("2. Almecenar Cuenta");
 		int opc = sc.nextInt();
-		
-		if(opc == 2) {
-			System.out.println("1. Almecenar Ahorros");
-			System.out.println("2. Almecenar Corriente");
-			opc1 = sc.nextInt();
-		}
-		this.banco.almacenar(opc, opc1);		
+		this.banco.almacenar(opc);		
 	}
 
 	private void imprimirCuentas() {
 		System.out.println("Num\tSaldo\tTipo\tCliente");
-		for(ProductosFinancieros pf : this.banco.getCuentaAhorros()) {
-			System.out.println(pf);
-		}
-		
-		for(ProductosFinancieros pf : this.banco.getCuentaCorriente()) {
+		for(ProductosFinancieros pf : this.banco.getCuentas()) {
 			System.out.println(pf);
 		}
 	}
@@ -134,7 +122,6 @@ public class Principal {
 	}
 
 	private void menuCuentas1(Scanner sc) throws Exception {
-		ProductosFinancieros pf;
 		System.out.println("Seleccione si su ciuenta es de :");
 		System.out.println("1. Volver");
 		System.out.println("1. Ahorros");
@@ -190,14 +177,22 @@ public class Principal {
 			int valor = sc.nextInt();
 			this.banco.retirar(Numero, idCliente, valor, 1);
 			
-		}else if(opc == 2) {
-			System.out.println("Por favor ingrese el numero de cuenta en la que desea retirar ");
+		}else if(opc == 3) {
+			System.out.println("Por favor ingrese el numero de su cuenta: ");
 			int Numero = sc.nextInt();
 			System.out.println("Por favor ingrese el id del cliente de la cuenta: ");
 			int idCliente = sc.nextInt();
-			System.out.println("Por favor ingrese el valor que desea retirar: ");
+			System.out.println("Por favor ingrese el numero de cuenta en el que desea transferir el dinero: ");
+			int NumeroT = sc.nextInt();
+			System.out.println("Por favor ingrese el tipo de la cuenta: ");
+			System.out.println("1.Ahorros.");
+			System.out.println("2.Corriente.");
+			int TipoT = sc.nextInt();
+			System.out.println("Por favor ingrese el id del cliente de la cuenta: ");
+			int idClienteT = sc.nextInt();
+			System.out.println("Por favor ingrese el valor que desea transferir: ");
 			int valor = sc.nextInt();
-			this.banco.retirar(Numero, idCliente, valor, 2);
+			this.banco.transferir(Numero, idCliente, valor, 2,NumeroT,idClienteT,TipoT);
 		}
 		
 		

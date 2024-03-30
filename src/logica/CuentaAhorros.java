@@ -52,7 +52,7 @@ public  class CuentaAhorros extends ProductosFinancieros implements Cuentas{
 	}
 
 	@Override
-	public void Transferir(ProductosFinancieros pf, int valor) throws Exception {
+	public void Transferir(Cuentas cs, int valor) throws Exception {
 		this.retirar(valor,true);
 		//pf.consignar(valor);
 		
