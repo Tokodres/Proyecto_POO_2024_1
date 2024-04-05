@@ -4,8 +4,6 @@ import java.util.Scanner;
 
 import logica.Banco;
 import logica.Cliente;
-import logica.CuentaAhorros;
-import logica.CuentaCorriente;
 import logica.ProductosFinancieros;
 
 public class Principal {
@@ -35,10 +33,10 @@ public class Principal {
 				System.out.println("5. Almacenar en archivo de texto plano");
 				System.out.println("6. Cargar desde archivo de texto plano");
 				System.out.println("7. Realizar un movimiento en un Cuenta");
-				System.out.println("8. ");
-				System.out.println("9. ");
-				System.out.println("10.Crear Credito Libre Invrsion.");
-				System.out.println("11.Consignar en Credito de Libre Inversion.");
+				System.out.println("8. Crear Creditos");
+				System.out.println("9. Consignar Credito Libre Inversion");
+				System.out.println("10. Consignar Credito Hipotecario");
+				System.out.println("11. Crear tarjeta Credio");
 				op = sc.nextInt();
 				if(op == 1) {
 					this.crearCliente(sc);				
@@ -47,7 +45,7 @@ public class Principal {
 				}else if(op == 3) {
 					this.imprimirClientes();
 				}else if(op == 4) {
-					this.menuimprimirCuentas(sc);
+					this.imprimirCuentas();
 				}else if(op == 5) {
 					this.almacenar(sc);
 				}else if(op == 6) {
@@ -55,13 +53,15 @@ public class Principal {
 				}else if(op == 7) {
 					this.menuCuentas1(sc);
 				}else if(op == 8) {
-					
-				}else if (op == 9) {
-					
-				}else if(op == 10) {
-					this.crearCreditoLibreInversion(sc);
-				}else if(op == 11) {
+					this.menuCreditos(sc);
+				}else if(op == 9) {
 					this.consignarCreditoLibreInversion(sc);
+				}else if(op == 10) {
+					this.consignarCreditoHipotecario(sc);
+				}else if(op == 11) {
+					this.crearTarjetaCredito(sc);
+				}else if(op == 12) {
+					this.pagarTarjetaCredito(sc);
 				}
 			} catch (Exception e) {
 				e.getMessage();
@@ -88,43 +88,16 @@ public class Principal {
 
 	private void almacenar(Scanner sc) {
 		System.out.println("seleccione:");
-		System.out.println("1. Almecenar Cliente.");
-		System.out.println("2. Almecenar Cuentas.");
+		System.out.println("1. Almecenar Cliente");
+		System.out.println("2. Almecenar Cuenta");
 		int opc = sc.nextInt();
-		int tipoCuenta = 0;
-		if(opc == 2) {
-			System.out.println("Seleccione Cuenta a almacenar:");
-			System.out.println("1. Ahorros.");
-			System.out.println("2. Corriente.");
-			tipoCuenta = sc.nextInt();
-		}
-		this.banco.almacenar(opc,tipoCuenta);		
+		this.banco.almacenar(opc);		
 	}
 
-	private void menuimprimirCuentas(Scanner sc) {
-		System.out.println("Seleccione Cuenta a imprimir:");
-		System.out.println("1. Ahorros.");
-		System.out.println("2. Corriente.");
-		int tipoCuenta = sc.nextInt();
-		this.imprimirCuentas(tipoCuenta);
-		
-	}
-	
-	
-	
-	
-	
-	private void imprimirCuentas(int tipoCuenta) {
-		if(tipoCuenta == 1) {
-			System.out.println("Num\tSaldo\tTipo\tCliente");
-			for(CuentaAhorros ca : this.banco.getCuentaAhorros()) {
-				System.out.println(ca);
-			}
-		}else if(tipoCuenta == 2) {
-			System.out.println("Num\tSaldo\tTipo\tCliente");
-			for(CuentaCorriente cc : this.banco.getCuentaCorriente()) {
-				System.out.println(cc);
-			}
+	private void imprimirCuentas() {
+		System.out.println("Num\tSaldo\tTipo\tCliente");
+		for(ProductosFinancieros pf : this.banco.getCuentas()) {
+			System.out.println(pf);
 		}
 	}
 
@@ -162,7 +135,7 @@ public class Principal {
 	}
 
 	private void menuCuentas1(Scanner sc) throws Exception {
-		System.out.println("Seleccione si su ciuenta es de :");
+		System.out.println("Seleccione si su cuenta es de :");
 		System.out.println("1. Volver");
 		System.out.println("1. Ahorros");
 		System.out.println("2. Corriente");
@@ -182,38 +155,20 @@ public class Principal {
 		System.out.println("3. Transferir");
 		int opc = sc.nextInt();
 		if(opc == 1) {
-			System.out.println("Por favor ingrese el numero de cuenta a la que desea consignar: ");
-			int Numero = sc.nextInt();
-			System.out.println("Por favor ingrese el id del cliente de la cuenta: ");
-			int idCliente = sc.nextInt();
-			System.out.println("Por favor ingrese el valor que desea consignar: ");
-			int valor = sc.nextInt();
-			this.banco.consignar(Numero, idCliente, valor,1);
-		}else if(opc == 2) {
-			System.out.println("Por favor ingrese el numero de cuenta en la que desea retirar ");
-			int Numero = sc.nextInt();
-			System.out.println("Por favor ingrese el id del cliente de la cuenta: ");
-			int idCliente = sc.nextInt();
-			System.out.println("Por favor ingrese el valor que desea retirar: ");
-			int valor = sc.nextInt();
-			this.banco.retirar(Numero, idCliente, valor, 1);
-		}
-		
-	}
-	
-	private void menuCuentasCorrientes(Scanner sc) throws Exception {
-		System.out.println("Seleccione:");
-		System.out.println("0. Volver");
-		System.out.println("1. Consignar");
-		System.out.println("2. Retirar");
-		System.out.println("3. Transferir");
-		int opc = sc.nextInt();
-		if(opc == 1) {
 			System.out.println("Por favor ingrese el numero de cuenta en la que desea consignar: ");
 			int Numero = sc.nextInt();
 			System.out.println("Por favor ingrese el id del cliente de la cuenta: ");
 			int idCliente = sc.nextInt();
 			System.out.println("Por favor ingrese el valor que desea consignar: ");
+			int valor = sc.nextInt();
+			this.banco.consignar(Numero, idCliente, valor, 1);
+			
+		}else if(opc == 2) {
+			System.out.println("Por favor ingrese el numero de cuenta en la que desea retirar: ");
+			int Numero = sc.nextInt();
+			System.out.println("Por favor ingrese el id del cliente de la cuenta: ");
+			int idCliente = sc.nextInt();
+			System.out.println("Por favor ingrese el valor que desea retirar: ");
 			int valor = sc.nextInt();
 			this.banco.retirar(Numero, idCliente, valor, 1);
 			
@@ -232,15 +187,69 @@ public class Principal {
 			int idClienteT = sc.nextInt();
 			System.out.println("Por favor ingrese el valor que desea transferir: ");
 			int valor = sc.nextInt();
-			this.banco.transferir(Numero, idCliente, valor, 2,NumeroT,idClienteT,TipoT);
+			this.banco.transferir(Numero, idCliente, valor, 1,NumeroT,idClienteT,TipoT);
 		}
-		
-		
-		
 		
 	}
 	
-	private void crearCreditoLibreInversion(Scanner sc) {
+	private void menuCuentasCorrientes(Scanner sc) throws Exception {
+		System.out.println("Seleccione:");
+		System.out.println("0. Volver");
+		System.out.println("1. Consignar");
+		System.out.println("2. Retirar");
+		System.out.println("3. Transferir");
+		int opc = sc.nextInt();
+		if(opc == 1) {
+			System.out.println("Por favor ingrese el numero de cuenta en la que desea consignar: ");
+			int Numero = sc.nextInt();
+			System.out.println("Por favor ingrese el id del cliente de la cuenta: ");
+			int idCliente = sc.nextInt();
+			System.out.println("Por favor ingrese el valor que desea consignar: ");
+			int valor = sc.nextInt();
+			this.banco.consignar(Numero, idCliente, valor, 2);
+			
+		}else if(opc == 2) {
+			System.out.println("Por favor ingrese el numero de cuenta en la que desea retirar: ");
+			int Numero = sc.nextInt();
+			System.out.println("Por favor ingrese el id del cliente de la cuenta: ");
+			int idCliente = sc.nextInt();
+			System.out.println("Por favor ingrese el valor que desea retirar: ");
+			int valor = sc.nextInt();
+			this.banco.retirar(Numero, idCliente, valor, 2);
+			
+		}else if(opc == 3) {
+			System.out.println("Por favor ingrese el numero de su cuenta: ");
+			int Numero = sc.nextInt();
+			System.out.println("Por favor ingrese el id del cliente de la cuenta: ");
+			int idCliente = sc.nextInt();
+			System.out.println("Por favor ingrese el numero de cuenta en el que desea transferir el dinero: ");
+			int NumeroT = sc.nextInt();
+			System.out.println("Por favor ingrese el tipo de la cuenta: ");
+			System.out.println("1.Ahorros.");
+			System.out.println("2.Corriente.");
+			int TipoT = sc.nextInt();
+			System.out.println("Por favor ingrese el id del cliente de la cuenta: ");
+			int idClienteT = sc.nextInt();
+			System.out.println("Por favor ingrese el valor que desea transferir: ");
+			int valor = sc.nextInt();
+			this.banco.transferir(Numero, idCliente, valor, 2,NumeroT,idClienteT,TipoT);
+		}
+	
+	}
+	private void menuCreditos(Scanner sc) throws Exception {
+		System.out.println("Seleccione si su cuenta es de :");
+		System.out.println("1. Volver");
+		System.out.println("1. Credito Hipotecario");
+		System.out.println("2. Credito Libre Inversion");
+		int opc = sc.nextInt();
+		if(opc == 1) {
+			this.crearCreditoHipotecario(sc);
+		}else if(opc ==2) {
+			this.crearCreditoLibreInversion(sc);
+		}
+	}
+		
+	private void crearCreditoLibreInversion(Scanner sc) throws Exception {
 		System.out.println("Por favor el numero de la Cuenta: ");
 		int numeroCuenta = sc.nextInt();
 		System.out.println("Por favor el id de Cliente de la Cuenta: ");
@@ -271,20 +280,61 @@ public class Principal {
 		System.out.println("Por favor el valor a consignar: ");
 		int valor = sc.nextInt();
 		this.banco.consignarCreditoLibreInversion(numeroCuenta, idCliente, tipoCuenta, numeroCredito, valor);
+			
+	}
+	
+	private void crearCreditoHipotecario(Scanner sc) throws Exception {
+		System.out.println("Por favor el numero de la Cuenta: ");
+		int numeroCuenta = sc.nextInt();
+		System.out.println("Por favor el id de Cliente de la Cuenta: ");
+		int idCliente = sc.nextInt();
+		System.out.println("Por favor ingrese el Tipo de la Cuenta: ");
+		System.out.println("1.Ahorros ");
+		System.out.println("2.Corriente");
+		int tipoCuenta = sc.nextInt();
+		System.out.println("Por favor el numero de el Credito: ");
+		int numeroCredito = sc.nextInt();
+		System.out.println("Por favor el valor de el credito: ");
+		int valor = sc.nextInt();
 		
+		this.banco.crearCreditoHipotecario(numeroCuenta, idCliente, tipoCuenta, numeroCredito, valor);
+	}
+	private void consignarCreditoHipotecario(Scanner sc) throws Exception {
+		System.out.println("Por favor el numero de la Cuenta: ");
+		int numeroCuenta = sc.nextInt();
+		System.out.println("Por favor el id de Cliente de la Cuenta: ");
+		int idCliente = sc.nextInt();
+		System.out.println("Por favor ingrese el Tipo de la Cuenta: ");
+		System.out.println("1.Ahorros ");
+		System.out.println("2.Corriente");
+		int tipoCuenta = sc.nextInt();
+		System.out.println("Por favor el numero de el Credito: ");
+		int numeroCredito = sc.nextInt();
+		System.out.println("Por favor el valor a consignar: ");
+		int valor = sc.nextInt();
+		this.banco.consignarCreditoHipotecario(numeroCuenta, idCliente, tipoCuenta, numeroCredito, valor);
+			
+	}
+	
+	private void crearTarjetaCredito(Scanner sc) throws Exception {
+		System.out.println("Por favor el numero de la Tarjeta de Credito: ");
+		int numeroTarjetaCredito = sc.nextInt();
+		System.out.println("Por favor el id de Cliente de la Tarjeta: ");
+		int idCliente = sc.nextInt();
+		System.out.println("Por favor el Cupo de la Tarjeta: ");
+		int Cupo = sc.nextInt();
+		this.banco.CrearTarjetaCredito(numeroTarjetaCredito, idCliente, Cupo);
+	}
+
+	private void pagarTarjetaCredito(Scanner sc) throws Exception {
+		System.out.println("Numero de tarjeta de credito con la que desea pagar: ");
+		int numeroTarjetaCredito = sc.nextInt();
+		System.out.println("Por favor el id de Cliente de la Tarjeta de credito: ");
+		int idCliente = sc.nextInt();
+		System.out.println("Ingrese el monto que desea pagar: ");
+		int monto = sc.nextInt();
+		this.banco.PagarTarjetaCredito(numeroTarjetaCredito, idCliente, monto);
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
 }
