@@ -322,7 +322,12 @@ public class Banco {
 	public void crearCreditos(int idCliente, int numeroCuenta, int tipoCuenta, int numeroCredito, int valor, int TipoCredito) throws Exception {
 		if(this.existeCredito(numeroCredito, 2) || this.existeCredito(numeroCredito, 1)) {
 			throw new Exception("Ya cuenta con un credito este Ususario");
-		}else{
+		}else if(!this.exiteCuenta(numeroCuenta, tipoCuenta)) {
+			throw new Exception("La Cuenta no Existe");
+		}else if(this.clientes.containsKey(idCliente)) {
+			throw new Exception("Cliente no Existente");
+		}
+		else{
 			for(Cuentas cuentas: this.cuentas) {
 				if(cuentas.getNumero() == numeroCuenta) {
 					if(cuentas.getSaldo() >=  (valor * 0.2)) {						

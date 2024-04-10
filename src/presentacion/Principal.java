@@ -152,6 +152,8 @@ public class Principal {
 		System.out.println("Saldo:");
 		int saldo = sc.nextInt();
 		System.out.println("Tipo:");
+		System.out.println("1.Ahorros");
+		System.out.println("2.Corriente");
 		int tipo = sc.nextInt();
 		System.out.println("Id Cliente:");
 		int idCliente = sc.nextInt();
