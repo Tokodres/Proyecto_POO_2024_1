@@ -1,24 +1,18 @@
 package logica;
 
-public class CreditoLibreInversion extends ProductosFinancieros implements Creditos {
-	private int Numero;
-	private int ValorCredito;
-	private int valorPagado;
+public class CreditoLibreInversion extends Creditos implements MovimientosCreditos {
 	final float recaudo = 0.5f;
 	
-	public CreditoLibreInversion(String tipo, Cliente cliente, int numero, int valorCredito, int valorPagado) {
-		super(tipo, cliente);
-		Numero = numero;
-		ValorCredito = valorCredito;
-		this.valorPagado = valorPagado;
+	public CreditoLibreInversion(String tipo, Cliente cliente, int valorCredito, int numero, int valorPagado) {
+		super(tipo, cliente, valorCredito, numero, valorPagado);
 	}
-	
+
 	public int getNumero() {
 		return Numero;
 	}
 
 	public int getValorCredito() {
-		return ValorCredito;
+		return this.valorCredito;
 	}
 
 	public int getValorPagado() {
@@ -31,8 +25,12 @@ public class CreditoLibreInversion extends ProductosFinancieros implements Credi
 
 	@Override
 	public void consignarCredito(int valor) {
-		this.valorPagado += valor;
-		
+		this.valorPagado += valor;	
+	}
+	
+	@Override
+	public String toString() {
+		return this.Numero + "\t" + this.valorCredito + "\t" + this.valorPagado + "\t" + this.Tipo + "\t" + this.cliente;
 	}
 	
 	

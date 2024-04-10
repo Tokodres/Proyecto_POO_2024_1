@@ -1,9 +1,19 @@
 package logica;
 
-public interface Cuentas {
+public class Cuentas extends ProductosFinancieros{
+	protected int numero;
+	protected int saldo;
 	
-	public abstract void consignar(int valor);
-	public abstract void retirar(int valor, boolean Transferir) throws Exception;
-	public abstract void Transferir(Cuentas cs,int valor) throws Exception;
+	public Cuentas(String tipo, Cliente cliente, int numero, int saldo) {
+		super(tipo, cliente);
+		this.numero = numero;
+		this.saldo = saldo;
+	}
+	public int getNumero() {
+		return numero;
+	}
+	public int getSaldo() {
+		return saldo;
+	}
 	
 }

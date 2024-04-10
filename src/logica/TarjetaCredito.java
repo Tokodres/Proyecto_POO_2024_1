@@ -29,10 +29,11 @@ public class TarjetaCredito extends ProductosFinancieros {
 			this.CupoUsado += valor;			
 		}
 	}	
-	public void CuotaManejo() {
-		
-	}
 	
+	@Override
+	public String toString() {
+		return this.Numero + "\t" + this.Cupo + "\t" + this.CupoUsado + "\t" + this.Tipo + "\t" + this.cliente;
+	}
 	
 	
 	

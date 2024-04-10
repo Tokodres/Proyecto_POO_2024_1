@@ -1,21 +1,9 @@
 package logica;
 
-public class CuentaCorriente extends ProductosFinancieros implements Cuentas {
+public class CuentaCorriente extends Cuentas implements MovimientosCuentas {
 	
 	public final float interes = 0.5f;
-	private int numero;
-	private int saldo;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public int getNumero() {
 		return numero;
 	}
@@ -28,10 +16,10 @@ public class CuentaCorriente extends ProductosFinancieros implements Cuentas {
 	public void setSaldo(int saldo) {
 		this.saldo = saldo;
 	}
+	
 	public CuentaCorriente(String tipo, Cliente cliente, int numero, int saldo) {
-		super(tipo, cliente);
-		this.numero = numero;
-		this.saldo = saldo;
+		super(tipo, cliente, numero, saldo);
+		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public void consignar(int valor) {
@@ -57,7 +45,7 @@ public class CuentaCorriente extends ProductosFinancieros implements Cuentas {
 	}
 
 	@Override
-	public void Transferir(Cuentas cs, int valor) throws Exception {
+	public void Transferir(MovimientosCuentas cs, int valor) throws Exception {
 		
 		
 		this.retirar(valor,true);
